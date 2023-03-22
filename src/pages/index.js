@@ -9,18 +9,19 @@ export default function Home() {
   
   const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post('api/generate', {
-      text: textToTraslate,
-      language: language
-    })
-    .then(function(res) {
-      console.log(res);
-      setTranslation(res.data.result)
-    })
-    .catch(function(error) {
-      console.log(error);
-    })
-
+    if(textToTraslate.length > 0 && language) {
+      axios.post('api/generate', {
+        text: textToTraslate,
+        language: language
+      })
+      .then(function(res) {
+        console.log(res);
+        setTranslation(res.data.result)
+      })
+      .catch(function(error) {
+        console.log(error);
+      })
+    }
   };
 
   return (
