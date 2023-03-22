@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: rgb(20, 20, 20);
+    color: rgb(181, 180, 180);
+    padding: 1rem 0;
+    font-family: 'Roboto';
+}
+#container {
+    border: 1px solid rgb(87, 87, 87);
+    border-radius: 1rem;
+    width: 90%;
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+form {
+    display: flex;
+    flex-direction: column;
+}
+.language-input, .text-input, .translate-btn{
+    border: none;
+    background-color:rgb(20, 20, 20);
+    color:rgb(181, 180, 180);
+    border: 1px solid rgb(87, 87, 87);
+    border-radius: .25rem;
+    padding: .5rem;
+    font-size: 1.15rem;
+}
+.text-input {
+    font-size: 1.5rem;
+    height: 25vh;
+    margin: 1rem 0;
+    outline: none;
+}
+.translate-btn {
+    background-color: black;
+    border: none;
+    &:hover {
+        cursor: pointer;
+        color: white;
+    }
+}
+#translation {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+}
