@@ -15,8 +15,8 @@ export default function Home() {
         language: language
       })
       .then(function(res) {
-        console.log(res);
-        setTranslation(res.data.result)
+        console.log(res.data.result.message.content)
+        setTranslation(res.data.result.message.content)
       })
       .catch(function(error) {
         console.log(error);

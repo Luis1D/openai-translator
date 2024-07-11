@@ -1,23 +1,29 @@
-import { Configuration, OpenAIApi } from "openai";
+import axios from "axios";
+import { Configuration } from "openai";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 export default async function (req, res) {
   const userPrompt = req.body.text;
   const language = req.body.language;
 
   try {
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt: generatePrompt(userPrompt, language),
-      temperature: 0.6,
-      max_tokens: 200,
+    const completion = await axios.post('https://api.openai.com/v1/chat/completions',{
+      model: "gpt-4o",
+      messages: [{ role: "system", content: generatePrompt(userPrompt, language) }],
+      max_tokens: 256,
+      top_p: 1,
+      frequency_penalty: 0,
+      presence_penalty: 0,
+    },{
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `${configuration.apiKey}`,
+      },
     });
-    res.status(200).json({ result: completion.data.choices[0].text });
-
+    res.status(200).json({ result: completion.data.choices[0] });
   } catch(error) {
     if (error.response) {
       console.error(error.response.status, error.response.data);
@@ -34,5 +40,5 @@ export default async function (req, res) {
 }
 
 function generatePrompt(userPrompt, language) {
-  return `Translate ${userPrompt} to ${language}`;
+  return `Translate ${userPrompt} to ${language}. Reply with only the translation.`;
 }
